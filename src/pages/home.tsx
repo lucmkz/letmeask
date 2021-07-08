@@ -2,27 +2,30 @@ import illustrationImg from "../assets/images/illustration.svg";
 import logo from "../assets/images/logo.svg";
 import googleIconImage from "../assets/images/google-icon.svg";
 
+import "../styles/auth.scss";
+import { Button } from "../components/Button";
+
 export function Home() {
   return (
-    <div>
+    <div id="page-auth">
       <aside>
         <img src={illustrationImg} alt="Ilustração" />
         <strong>Create your Q&amp;A room live</strong>
         <p>answer your audience in real-time</p>
       </aside>
       <main>
-        <div>
+        <div className="main-content">
           <img src={logo} alt="letmeask" />
+          <button className="create-room">
+            <img src={googleIconImage} alt="Icon Logo" />
+            Create your room with Google
+          </button>
+          <div className="separator">Or join a room</div>
+          <form>
+            <input type="text" placeholder="type your room`s code" />
+            <Button type="submit">Join Room</Button>
+          </form>
         </div>
-        <button>
-          <img src={googleIconImage} alt="Icon Logo" />
-          Create your room with Google
-        </button>
-        <div>Or join a room</div>
-        <form>
-          <input type="text" placeholder="type your room`s code" />
-          <button type="submit">Join Room</button>
-        </form>
       </main>
     </div>
   );
