@@ -20,8 +20,6 @@ export function Home() {
     history.push("/room/new");
   }
 
-  function signIn() {}
-
   return (
     <div id="page-auth">
       <aside>
