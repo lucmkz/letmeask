@@ -34,7 +34,7 @@ export function Home() {
       throw new Error("Room does not exists");
     }
 
-    history.push(`room/${roomCode}`);
+    history.push(`rooms/${roomCode}`);
   }
 
   return (
