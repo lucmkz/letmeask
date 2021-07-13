@@ -26,12 +26,19 @@ export function Home() {
   async function handleJoinHoom(e: FormEvent) {
     e.preventDefault();
 
-    if (roomCode.trim() === "") return;
+    if (roomCode.trim() === "") {
+      return;
+    }
 
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if (!roomRef.exists()) {
-      throw new Error("Room does not exists");
+      alert("Room does not exists");
+    }
+
+    if (roomRef.val().endedAt) {
+      alert("Room already closed");
+      return;
     }
 
     history.push(`rooms/${roomCode}`);
