@@ -49,10 +49,19 @@ export function Room(props: any) {
     setNewQuestion("");
   }
 
-  async function handleLikeQuestion(questionId: string) {
-    await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
-      authorId: user?.id,
-    });
+  async function handleLikeQuestion(
+    questionId: string,
+    likeId: string | undefined
+  ) {
+    if (likeId) {
+      await database
+        .ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`)
+        .remove();
+    } else {
+      await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+        authorId: user?.id,
+      });
+    }
   }
 
   return (
@@ -107,10 +116,12 @@ export function Room(props: any) {
                 key={question.id}
               >
                 <button
-                  className={`like-button ${question.hasLiked ? "liked" : ""}`}
+                  className={`like-button ${question.likeId ? "liked" : ""}`}
                   type="button"
                   aria-label="like"
-                  onClick={() => handleLikeQuestion(question.id)}
+                  onClick={() =>
+                    handleLikeQuestion(question.id, question.likeId)
+                  }
                 >
                   {question.likeCount > 0 && <span>{question.likeCount}</span>}
                   <svg
