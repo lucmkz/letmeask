@@ -8,8 +8,11 @@ import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
 
 import "../styles/auth.scss";
+import { FormEvent, useState } from "react";
+import { database } from "../services/firebase";
 
 export function Home() {
+  const [roomCode, setRoomCode] = useState("");
   const { singInWithGoogle, user } = useAuth();
   const history = useHistory();
 
@@ -18,6 +21,20 @@ export function Home() {
       await singInWithGoogle();
     }
     history.push("/room/new");
+  }
+
+  async function handleJoinHoom(e: FormEvent) {
+    e.preventDefault();
+
+    if (roomCode.trim() === "") return;
+
+    const roomRef = await database.ref(`rooms/${roomCode}`).get();
+
+    if (!roomRef.exists()) {
+      throw new Error("Room does not exists");
+    }
+
+    history.push(`rooms/${roomCode}`);
   }
 
   return (
@@ -35,8 +52,13 @@ export function Home() {
             Create your room with Google
           </button>
           <div className="separator">Or join a room</div>
-          <form>
-            <input type="text" placeholder="type your room`s code" />
+          <form onSubmit={handleJoinHoom}>
+            <input
+              type="text"
+              placeholder="type your room`s code"
+              onChange={(e) => setRoomCode(e.target.value)}
+              value={roomCode}
+            />
             <Button type="submit">Join Room</Button>
           </form>
         </div>
