@@ -20,7 +20,7 @@ export function Home() {
     if (!user) {
       await singInWithGoogle();
     }
-    history.push("/room/new");
+    history.push("/rooms/new");
   }
 
   async function handleJoinHoom(e: FormEvent) {
