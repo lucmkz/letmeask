@@ -5,12 +5,16 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import "./services/firebase";
 import "./styles/global.scss";
+import { AuthContextProvider } from './context/AuthContext';
 
 function App() {
   return (
     <BrowserRouter>
-      <Route path='/' component={Home} exact />
-      <Route path='/room/new' component={NewRoom} />
+    <AuthContextProvider>
+        <Route path='/' component={Home} exact />
+        <Route path='/room/new' component={NewRoom} />
+    </AuthContextProvider>
+
     </BrowserRouter>
   );
 }

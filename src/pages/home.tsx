@@ -4,22 +4,20 @@ import illustrationImg from "../assets/images/illustration.svg";
 import logo from "../assets/images/logo.svg";
 import googleIconImage from "../assets/images/google-icon.svg";
 
-import "../styles/auth.scss";
 import { Button } from "../components/Button";
+import { useAuth } from "../hooks/useAuth";
 
-import { auth, firebase } from "../services/firebase";
+import "../styles/auth.scss";
 
 export function Home() {
+  const { singInWithGoogle, user } = useAuth();
   const history = useHistory();
 
-  function handleCreateRoom() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    auth.signInWithPopup(provider).then((result) => {
-      console.log(result);
-    });
-
-    // history.push("/room/new");
+  async function handleCreateRoom() {
+    if (!user) {
+      await singInWithGoogle();
+    }
+    history.push("/room/new");
   }
 
   function signIn() {}

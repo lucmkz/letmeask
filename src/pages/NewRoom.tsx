@@ -5,8 +5,11 @@ import logo from "../assets/images/logo.svg";
 
 import "../styles/auth.scss";
 import { Button } from "../components/Button";
+import { useAuth } from "../hooks/useAuth";
 
 export function NewRoom() {
+  const { user } = useAuth();
+
   return (
     <div id="page-auth">
       <aside>
@@ -24,7 +27,6 @@ export function NewRoom() {
           </form>
           <p>
             Do you want to join in a existent Room?{" "}
-           {" "}
             <Link to="/">Click here</Link>
           </p>
         </div>
