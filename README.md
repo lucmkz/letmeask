@@ -3,7 +3,9 @@
 </p>
 
 <h1 align="center">
-    <img alt="Letmeask" src=".github/cover.svg" />
+    <a align="center" href="https://letmeask-b808c.web.app/" target="_blank">
+      <img alt="Letmeask" src=".github/cover.svg" />
+    </a>
 </h1>
 
 <br>
